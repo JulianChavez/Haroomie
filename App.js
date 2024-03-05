@@ -11,7 +11,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="home" component={HomeScreen} />
-        <Stack.Screen name="To-Do add" component={AddToDoScreen} />
+        <Stack.Screen name="AddToDo" component={AddToDoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
 

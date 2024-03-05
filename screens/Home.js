@@ -1,13 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native';
-import BottomBar from '../MainComponents/BottomBar';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import BottomBar from '../HomeContainer/BottomBar';
+import { useNavigation } from '@react-navigation/native';
+
 function Home() {
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <View style={styles.lastestUpdateUsers}>
                 <Text>latest updates</Text>
             </View>
             <View style={styles.taskToDo}>
-                <Text> Task to do from apartment</Text>
+                <View style={styles.toDoTop}>
+                    <View style={styles.toDoButton} ><Button color='white' title="Add To-Do" onPress={() => navigation.navigate("AddToDo")} /></View>
+                </View>
+                <View style={styles.toDoMain}>
+
+                    <Text> Task to do from apartment</Text>
+                </View>
+
             </View>
             <View style={styles.BottomBarContainer}>
                 <BottomBar />
@@ -49,5 +59,19 @@ const styles = StyleSheet.create({
         padding: 1,
         width: '100%',
         backgroundColor: 'grey'
+    },
+    toDoTop: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
+    },
+    toDoMain: {
+        flex: 4,
+    },
+    toDoButton: {
+        height: 40,
+        backgroundColor: '#345a45',
+        borderWidth: 1,
+        borderColor: '#345a45'
     }
 });
