@@ -6,14 +6,37 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 function AddToDo() {
     const navigation = useNavigation()
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        { label: 'Kitchen', value: 'kitchen' },
-        { label: 'Living Room', value: 'livingRoom' }
+    const [openSelection, setOpenSelection] = useState(false);
+    const [valueSelection, setValueSelection] = useState(null);
+    const [itemsSelection, setItemsSelection] = useState([
+        { label: 'Cleaning', value: 'clean' },
+        { label: 'Task', value: 'task' },
+        { label: 'Reminder', value: 'reminder' },
+        { label: 'Organization', value: 'organization' }
     ]);
+
+    //Drop Down Priorit
+    const [openPriority, setOpenPriority] = useState(false);
+    const [valuePriority, setValuePriority] = useState(null);
+    const [itemsPriority, setItemsPriority] = useState([
+        { label: 'Low', value: 'low' },
+        { label: 'Mid', value: 'mid' },
+        { label: 'High', value: 'high' }
+    ])
+    //Drop Down Status
+    const [openStatus, setOpenStatus] = useState(false);
+    const [valueStatus, setValueStatus] = useState(null);
+    const [itemsStatus, setItemsStatus] = useState([
+        { label: 'Not Done', value: 'not' },
+        { label: 'In Progress', value: 'inProgress' },
+        { label: 'Done', value: 'done' }
+    ])
+
+
     function whatValue() {
-        console.log(value)
+        console.log(valueSelection)
+        console.log(valuePriority)
+        console.log(valueStatus)
     }
     return (
         <View style={styles.container}>
@@ -23,14 +46,38 @@ function AddToDo() {
                 <View style={styles.selection}>
                     <Text>Selection</Text>
                     <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
+                        open={openSelection}
+                        value={valueSelection}
+                        items={itemsSelection}
+                        setOpen={setOpenSelection}
+                        setValue={setValueSelection}
+                        setItems={setItemsSelection}
                     />
+                </View>
+                <View style={styles.priority}>
+                    {/*Drop Down for priority*/}
+                    <Text>Priority</Text>
+                    <DropDownPicker
+                        open={openPriority}
+                        value={valuePriority}
+                        items={itemsPriority}
+                        setOpen={setOpenPriority}
+                        setValue={setValuePriority}
+                        setItems={setItemsPriority}
+                    />
+                </View>
+                <View style={styles.status}>
+                    {/**Drop Down for STATUS*/}
+                    <Text>Status</Text>
+                    <DropDownPicker
+                        open={openStatus}
+                        value={valueStatus}
+                        items={itemsStatus}
+                        setOpen={setOpenStatus}
+                        setValue={setValueStatus}
+                        setItems={setItemsStatus}
 
+                    />
                 </View>
                 <View style={styles.valueStyle}><Button title='What value' onPress={whatValue} /></View>
             </View>
@@ -78,11 +125,26 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     selection: {
-        flex: .1,
-        backgroundColor: 'grey'
+        flex: .2,
+        zIndex: 10,
+        justifyContent: 'center',
+        backgroundColor: 'grey',
+    },
+    priority: {
+        zIndex: 9,
+        justifyContent: 'center',
+        backgroundColor: 'green'
+    },
+    status: {
+        zIndex: 8,
+        justifyContent: 'center',
+        backgroundColor: 'pink'
     },
     valueStyle: {
-        flex: .4
+        flex: .1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'orange'
+
     }
 
 })
