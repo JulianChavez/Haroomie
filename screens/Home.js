@@ -1,16 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import BottomBar from '../HomeContainer/BottomBar';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-function Home(props) {
-    const navigation = useNavigation()
+function Home() {
+    const navigation = useNavigation();
+    const route = useRoute();
     //Data of TO-DO task from users
     const [toDoTask, setToDoTask] = useState([]);
+    const { values } = route.params || {};
 
-    function addToDoTask(enteredToDoTask) {
+    function addToDoTask() {
         //When use adds ToDo Task from ToDo Screen
-        setToDoTask(currentTask => [...currentTask, { text: enteredToDoTask, id: Math.random().toString() }]);
+        setToDoTask([values]);
+    }
+    function check() {
+        console.log(toDoTask)
     }
 
 
@@ -25,6 +30,9 @@ function Home(props) {
                 </View>
                 <View style={styles.toDoMain}>
                     <Text> Task to do from apartment</Text>
+                    <Button title="check" onPress={addToDoTask} />
+                    <Button title='SecondCheck' onPress={check} />
+
                 </View>
             </View>
             <View style={styles.BottomBarContainer}>
