@@ -4,8 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 import DropDownPicker from "react-native-dropdown-picker";
 
 
-function AddToDo() {
+function AddToDo(props) {
     const navigation = useNavigation()
+    const [dropDownValues, setDropDownValues] = useState([])
     const [openSelection, setOpenSelection] = useState(false);
     const [valueSelection, setValueSelection] = useState(null);
     const [itemsSelection, setItemsSelection] = useState([
@@ -31,13 +32,15 @@ function AddToDo() {
         { label: 'In Progress', value: 'inProgress' },
         { label: 'Done', value: 'done' }
     ])
-
-
-    function whatValue() {
-        console.log(valueSelection)
-        console.log(valuePriority)
-        console.log(valueStatus)
+    function addValues() {
+        setDropDownValues([valueSelection, valuePriority, valueStatus])
     }
+    function whatValue() {
+        //the dropdown picker values are strings
+        console.log(dropDownValues)
+
+    }
+
     return (
         <View style={styles.container}>
 
@@ -79,6 +82,7 @@ function AddToDo() {
 
                     />
                 </View>
+                <View><Button title='ADD all data' onPress={addValues} /></View>
                 <View style={styles.valueStyle}><Button title='What value' onPress={whatValue} /></View>
             </View>
             <View style={styles.topBar}>

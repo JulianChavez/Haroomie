@@ -1,9 +1,19 @@
+import { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import BottomBar from '../HomeContainer/BottomBar';
 import { useNavigation } from '@react-navigation/native';
 
-function Home() {
+function Home(props) {
     const navigation = useNavigation()
+    //Data of TO-DO task from users
+    const [toDoTask, setToDoTask] = useState([]);
+
+    function addToDoTask(enteredToDoTask) {
+        //When use adds ToDo Task from ToDo Screen
+        setToDoTask(currentTask => [...currentTask, { text: enteredToDoTask, id: Math.random().toString() }]);
+    }
+
+
     return (
         <View style={styles.container}>
             <View style={styles.lastestUpdateUsers}>
@@ -14,10 +24,8 @@ function Home() {
                     <View style={styles.toDoButton} ><Button color='white' title="Add To-Do" onPress={() => navigation.navigate("AddToDo")} /></View>
                 </View>
                 <View style={styles.toDoMain}>
-
                     <Text> Task to do from apartment</Text>
                 </View>
-
             </View>
             <View style={styles.BottomBarContainer}>
                 <BottomBar />
