@@ -33,12 +33,28 @@ function AddToDo(props) {
         { label: 'Done', value: 'done' }
     ])
     function addValues() {
+        //Sets the array to the values the user picks
         setDropDownValues([valueSelection, valuePriority, valueStatus])
+        //console.log(typeof (valueStatus))
+        console.log(dropDownValues.forEach((item, i) => {
+            console.log(item)
+            console.log(i)
+        }))
     }
     function whatValue() {
         //the dropdown picker values are strings
         console.log(dropDownValues)
 
+    }
+    function addToDoTask() {
+        props.AddToDo(dropDownValues)
+    }
+    function submit() {
+        navigation.navigate({
+            name: 'home',
+            params: { updateList: dropDownValues },
+            merge: true,
+        })
     }
 
     return (
@@ -87,8 +103,8 @@ function AddToDo(props) {
             </View>
             <View style={styles.topBar}>
                 {/*Go Back and the ADD TO-DO*/}
-                <View style={styles.cancelButton}><Button title="Cancel" onPress={() => navigation.navigate("home")} color='white' /></View>
-                <View style={styles.addButton}><Button title="Add" onPress={() => navigation.navigate("home")} color='white' /></View>
+                <View style={styles.cancelButton}><Button title="Cancel" onPress={submit} color='white' /></View>
+                <View style={styles.addButton}><Button title="Add" onPress={submit} color='white' /></View>
             </View>
 
         </View>

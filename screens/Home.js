@@ -1,22 +1,34 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import BottomBar from '../HomeContainer/BottomBar';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import ToDoDisplay from '../HomeContainer/ToDoDisplay';
 
 function Home() {
     const navigation = useNavigation();
     const route = useRoute();
     //Data of TO-DO task from users
     const [toDoTask, setToDoTask] = useState([]);
-    const { values } = route.params || {};
+
 
     function addToDoTask() {
         //When use adds ToDo Task from ToDo Screen
-        setToDoTask([values]);
+        setToDoTask(currentToDoTask => [...currentToDoTask, { data: [route.params?.updateList], id: Math.random().toString() }]);
     }
     function check() {
-        console.log(toDoTask)
+        console.log(toDoTask[0])
     }
+
+    useEffect(() => {
+        if (route.params?.updateList) {
+            console.log('sent successfully');
+            addToDoTask();
+
+        }
+        else {
+            console.log('NOT SUCCESFUL');
+        }
+    }, [route.params?.updateList]);
 
 
     return (
@@ -28,6 +40,17 @@ function Home() {
                 <View style={styles.toDoTop}>
                     <View style={styles.toDoButton} ><Button color='white' title="Add To-Do" onPress={() => navigation.navigate("AddToDo")} /></View>
                 </View>
+                <FlatList data={toDoTask} renderItem={(itemData) => {
+                    //console.log(itemData.item.data[0])
+                    return <ToDoDisplay data={itemData.item.data} />
+                }}
+                    keyExtractor={(item, index) => {
+                        return item.id
+                    }}
+
+
+                />
+
                 <View style={styles.toDoMain}>
                     <Text> Task to do from apartment</Text>
                     <Button title="check" onPress={addToDoTask} />
